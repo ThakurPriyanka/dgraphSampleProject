@@ -1,0 +1,15 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+project/target
+project/logs/*
+*.iml
+.idea/*
+logs/*
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+*/logs/*
+*/.idea/*

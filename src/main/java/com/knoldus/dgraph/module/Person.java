@@ -6,13 +6,16 @@ import lombok.Builder;
 import lombok.ToString;
 import lombok.Value;
 
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @Value
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
+    String uid;
     String name;
-    int  age;
-
+    Integer  age;
+    List<String> hobbies;
 }

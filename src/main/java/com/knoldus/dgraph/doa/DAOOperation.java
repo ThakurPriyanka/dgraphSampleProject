@@ -16,7 +16,7 @@ import io.grpc.StatusRuntimeException;
 import java.util.Collections;
 import java.util.Map;
 
-public class DOAOperation {
+public class DAOOperation {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static DgraphClient dgraphClient = DgraphConnect.getDgraphConnectInstance().getDgraphClient();
@@ -61,10 +61,10 @@ public class DOAOperation {
         }
     }
 
-    public People getPeople() {
+    public People getPeople(String name) {
         // Query
         String query = config.getString("query.getPersons");
-        Map<String, String> vars = Collections.singletonMap("$personName", "sam");
+        Map<String, String> vars = Collections.singletonMap("$personName", name);
         try {
             DgraphProto.Response response = dgraphClient.newTransaction().queryWithVars(query, vars);
             // Deserialize
@@ -75,5 +75,30 @@ public class DOAOperation {
             throw new RuntimeException("Result can not be cast into object." + ex);
         }
 
+    }
+
+    public <T> boolean deleteNode(final T element)  {
+
+
+        try (Transaction txn = dgraphClient.newTransaction()) {
+            try {
+                final DgraphProto.Mutation mutation = getDeleteMutation(element);
+                txn.mutate(mutation);
+                txn.commit();
+                return true;
+
+            } catch (StatusRuntimeException | TxnConflictException | JsonProcessingException dgraphException) {
+                txn.discard();
+                throw new RuntimeException("Unable to persist the transaction ", dgraphException);
+            }
+        }
+    }
+
+    private <T> DgraphProto.Mutation getDeleteMutation(final T element)
+            throws JsonProcessingException {
+        final String inputJson = objectMapper.writeValueAsString(element);
+        return DgraphProto.Mutation.newBuilder()
+                .setDeleteJson(ByteString.copyFromUtf8(inputJson))
+                .build();
     }
 }
