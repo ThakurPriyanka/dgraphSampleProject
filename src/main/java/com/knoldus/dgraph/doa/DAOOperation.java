@@ -77,6 +77,20 @@ public class DAOOperation {
 
     }
 
+    public People getPerson(String uid) {
+        // Query
+        String query = config.getString("query.getPersonByUid");
+        Map<String, String> vars = Collections.singletonMap("$personUid", uid);
+        try {
+            DgraphProto.Response response = dgraphClient.newTransaction().queryWithVars(query, vars);
+            // Deserialize
+            return objectMapper.readValue(response.getJson().toByteArray(), People.class);
+        } catch (Exception ex) {
+            throw new RuntimeException("Result can not be cast into object." + ex);
+        }
+
+    }
+
     public <T> boolean deleteNode(final T element)  {
 
 

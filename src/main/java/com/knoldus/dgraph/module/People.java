@@ -13,7 +13,7 @@ import java.util.List;
 @Value
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class People {
-    List<Person> persons;
+public final class People {
+    private final List<Person> persons;
 
 }
