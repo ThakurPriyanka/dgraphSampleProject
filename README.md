@@ -1,4 +1,11 @@
 # dgraphSampleProject
+
+This a smaple project that will help ypu to understand anout the CRU operation in dgraph using the HTTP request.
+
+###Prerequisites Java Development Kit (JDK), version 8 or higher.
+Maven
+dgraph
+
 ### To run the project you have to import the two environment variables.
 
 export DGRAPH_HOST=localhost
