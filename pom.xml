@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <properties>
     <dgraph.version>1.7.1</dgraph.version>
-    <jackson.version>2.9.8</jackson.version>
+    <jackson.version>2.9.10.4</jackson.version>
     <lombok.version>1.16.14</lombok.version>
     <typesafe.version>1.3.3</typesafe.version>
   </properties>
